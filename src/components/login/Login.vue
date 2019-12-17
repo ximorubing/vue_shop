@@ -6,7 +6,7 @@
       <img src="../../assets/img/logo.png" alt="">
       </div>
       <div class="form_box">
-    <el-form  :model="ruleForm" :rules="rules">
+    <el-form  :model="ruleForm" :rules="rules" ref="ruleForm">
   <el-form-item prop="name">
     <el-input v-model="ruleForm.name" ><i slot="prefix" class="iconfont icon-user"></i></el-input>
   </el-form-item>
@@ -17,7 +17,7 @@
       </div>
   <div class="login-button">
     <el-button type="primary">登录</el-button>
-    <el-button type="info">重置</el-button>
+    <el-button type="info" @click="resetForm('ruleForm')">重置</el-button>
   </div>
     </div>
     </div>
@@ -46,6 +46,11 @@ export default {
       }     
     }
     
+},
+methods:{
+  resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
 }
 }
 </script>
