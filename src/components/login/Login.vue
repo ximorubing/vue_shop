@@ -7,16 +7,16 @@
       </div>
       <div class="form_box">
     <el-form  :model="ruleForm" :rules="rules" ref="ruleForm">
-  <el-form-item prop="name">
-    <el-input v-model="ruleForm.name" ><i slot="prefix" class="iconfont icon-user"></i></el-input>
+  <el-form-item prop="username">
+    <el-input v-model="ruleForm.username" ><i slot="prefix" class="iconfont icon-user"></i></el-input>
   </el-form-item>
   <el-form-item prop="password" >
-    <el-input v-model="ruleForm.password"><i slot="prefix" class="iconfont icon-3702mima"></i></el-input>
+    <el-input v-model="ruleForm.password" show-password><i slot="prefix" class="iconfont icon-3702mima"></i></el-input>
   </el-form-item>
   </el-form>
       </div>
   <div class="login-button">
-    <el-button type="primary">登录</el-button>
+    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
     <el-button type="info" @click="resetForm('ruleForm')">重置</el-button>
   </div>
     </div>
@@ -25,19 +25,20 @@
 </template>
 
 <script>
+import {request} from '../../network/request'
 export default {
     
     data(){
       return{
         ruleForm:{
-          name:'',
+          username:'',
           password:''
 
         },
         rules:{
-        name: [
+        username: [
             { required: true, message: '请输入用户名', trigger: 'blur' },
-            { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
+            { min: 5, max: 18, message: '长度在 5 到 18 个字符', trigger: 'blur' }
           ],
         password: [
             { required: true, message: '请输入密码', trigger: 'blur' },
@@ -48,9 +49,35 @@ export default {
     
 },
 methods:{
+  submitForm(formName){
+    this.$refs[formName].validate(async valid=>{
+      if(!valid) return
+     
+      let rule=this.ruleForm;
+      
+      
+      const res=await request({
+        url:'login',
+        methods:'post',
+        params:{
+          username:rule.username,
+          password:rule.password
+        }
+        
+      })
+      console.log(res);
+      if(res.meta.status!==200) return this.$message.error('登录失败')
+      this.$message.success('登录成功')
+     
+
+    })
+
+  },
   resetForm(formName) {
         this.$refs[formName].resetFields();
+        
       }
+      
 }
 }
 </script>
