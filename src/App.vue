@@ -16,6 +16,7 @@ export default {
 
 @import './assets/css/normalize.css';
 @import './assets/css/base.css';
+@import './assets/font/iconfont.css';
 
 #app{
   height: 100%;

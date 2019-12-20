@@ -65,16 +65,17 @@ methods:{
         }
         
       })
-      console.log(res);
+      console.log(res)
       if(res.meta.status!==200) return this.$message.error('登录失败')
       this.$message.success('登录成功')
-     
+      window.sessionStorage.setItem("token",res.data.token)
+      this.$router.push('/home')
 
     })
 
   },
   resetForm(formName) {
-        this.$refs[formName].resetFields();
+        this.$refs[formName].resetFields()
         
       }
       
@@ -84,7 +85,7 @@ methods:{
 
 <style scoped>
 
-@import '../../assets/font/iconfont.css';
+
 
 .login-container{
     height: 100%;
