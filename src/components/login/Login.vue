@@ -56,7 +56,7 @@ methods:{
       let rule=this.ruleForm;
       
       
-      const res=await request({
+      const res=await this.request({
         url:'login',
         methods:'post',
         params:{
