@@ -2,3 +2,19 @@ body,html{
     height: 100%;
 
 }
+
+.el-breadcrumb{
+    font-size: 12px !important;
+    margin-bottom: 20px;
+   
+}
+.el-card__header{
+    border-bottom:none !important;
+}
+
+.el-table{
+    margin-top: 20px;
+  }
+  .el-pagination{
+    margin-top: 20px;
+  }

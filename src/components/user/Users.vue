@@ -24,7 +24,7 @@
     <el-table
     :data="UserList"
     border
-    style="width: 100%">
+    style="width: 100%" stripe>
     <el-table-column
       type="index">
     </el-table-column>
@@ -350,18 +350,19 @@ export default {
           if(!this.value) return this.$message.error("请选择分配角色")
           console.log(this.value)
           const res=await this.request({
-            url:`users/${this.value}/role`,
+            url:`users/${this.editUserForm.id}/role`,
             method:'put',
             data:{
               
-              rid:this.editUserForm.rid
+              rid:this.value
             }
           })
           console.log(res)
-          if(res.meta.status!==200)return this.$message.error("分配角色失败")
+          if(res.meta.status!==200)return this.$message.error(res.meta.msg)
           this.$message.success("分配角色成功")
-         //this.roleDialogVisible=false
-          //this.getUserlist()
+         this.roleDialogVisible=false
+         this.value=""
+        this.getUserlist()
           
 
         },
@@ -433,25 +434,15 @@ export default {
 
 <style scoped>
 
-    .el-breadcrumb{
-        font-size: 12px;
-        margin-bottom: 20px;
-    }
-    .el-card__header{
-        border-bottom:none !important;
-    }
+    
+    
 
     .el-col .editBtn{
       margin-left:20px;
     }
 
-    .el-row{
-      margin-bottom: 20px;
-    }
-
-    .el-pagination{
-      margin-top: 20px;
-    }
+    
+    
     .deleteTip{
       text-align: center;
       font-size: 16px;
